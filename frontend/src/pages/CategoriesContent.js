@@ -1,14 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect, useStatem, useContext } from "react";
 import { ProductsContext } from "../Context/ProductsContext";
+import { ProductsProvider } from "../Context/ProductsContext";
 import ProductCard from "../components/ProductCard";
-const AllCategoriesContent = () => {
-  const { products } = useContext(ProductsContext);
+const CategoriesContent = () => {
+  const { products, categories } = useContext(ProductsContext);
 
   useEffect(() => {
     console.log("Updated Products Context:", products); // Ensure data updates correctly
-  }, [products]);
+  }, [products,categories]);
 
   return (
+    
     <div
       className="grid grid-cols-3 gap-2" // Reduced gap from 4 to 2 for closeness
       style={{
@@ -19,11 +21,11 @@ const AllCategoriesContent = () => {
       }}
     >
       {products.map((product) => (
-        <ProductCard key={product.id} product={product}></ProductCard>
+        <ProductCard category = {categories} key={product.id} product={product}></ProductCard>
       ))}
     </div>
 
   );
 };
 
-export default AllCategoriesContent;
+export default CategoriesContent;

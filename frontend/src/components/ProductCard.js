@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useStatem, useContext } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { ProductsContext } from "../Context/ProductsContext";
 
-const ProductCard = ({ product }) => {
-  // console.log(product);
+const ProductCard = ({ product, category }) => {
+
   const styles = {
     card: {
       width: "250px",
@@ -82,7 +83,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <Link
-      to={`/allproducts/${product.id}`} // Define the path including product ID
+      to={`/allproducts/${category}/${product.id}`} // Define the path including product ID
       style={{ textDecoration: "none" }} // Remove default link styling for the whole card
     >
       <div

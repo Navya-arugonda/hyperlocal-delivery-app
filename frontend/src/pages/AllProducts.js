@@ -3,7 +3,7 @@ import AllCategories from "../components/AllCategories";
 import { useParams, useSearchParams } from "react-router-dom";
 import { ProductsProvider } from "../Context/ProductsContext";
 import axios from "axios";
-import AllCategoriesContent from "./AllCategoriesContent";
+import CategoriesContent from "./CategoriesContent";
 
 function AllProducts() {
   const { products: category } = useParams(); 
@@ -12,24 +12,26 @@ function AllProducts() {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true); // Make sure loading is set to true when switching categories
       try {
         const response = await axios.get(`https://zeptojson.onrender.com/${category}`);
         setProductsData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchProducts();
+  
+    if (category) {
+      fetchProducts();
+    }
   }, [category]);
   if (loading) return <p>Loading products...</p>;
   return (
-    <ProductsProvider data={productsData}>
-      <AllCategories></AllCategories>
-      <AllCategoriesContent></AllCategoriesContent>
+    <ProductsProvider product={productsData} category = {category}>
+      <AllCategories/>
+      <CategoriesContent/>
     </ProductsProvider>
   );
 }
