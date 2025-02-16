@@ -26,7 +26,7 @@ const Footer = () => {
       </div>
       <div className="flex flex-col md:flex-row gap-x-32 mb-10 mt-12">
         <div className="">
-          <img src={logo} alt="logo" />
+          <h3>Logo</h3>
           <div className="flex flex-row gap-4 mt-6">
             {socialmedia.map((socialmed, id) => (
               <div
