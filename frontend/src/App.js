@@ -5,11 +5,19 @@ import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
-
+import AllProducts from "./pages/AllProducts"
+import SingleProduct from "./pages/SingleProduct";
 function App() {
   return (
+    
+    <div className="App">
+      
     <Router>
       <Routes>
+      <Route path='/allproducts/:products' element={<AllProducts/>} />
+      <Route path='/allproducts/:products/:id' element={
+              <SingleProduct/>
+            } />
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
@@ -17,6 +25,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
+    </div>
   );
 }
 
