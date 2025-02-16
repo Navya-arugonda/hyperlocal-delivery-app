@@ -15,11 +15,11 @@ const HomePage = () => {
       <section className="w-full max-w-4xl mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Example Product */}
-          <div className="bg-white p-6 shadow-md rounded-2xl">
+          <div className="bg-white p-6 shadow-md rounded-2xl flex flex-col items-center">
             <img
-              src="https://via.placeholder.com/300"
+              src="https://via.placeholder.com/500x500"
               alt="Product"
-              className="w-full h-48 object-cover rounded-xl mb-4"
+              className="w-full h-auto object-contain rounded-xl mb-4" // h-auto ensures it scales properly
             />
             <h2 className="text-xl font-semibold text-gray-800">Product Name</h2>
             <p className="text-gray-600 mt-2">Brief description of the product.</p>

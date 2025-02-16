@@ -10,7 +10,7 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = "http://localhost:5000/api/products";
+        let url = "http://localhost:5001/api/products";
         if (category) {
           url += `?category=${category}`; // Fetch products by category
         }

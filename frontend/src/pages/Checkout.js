@@ -14,7 +14,7 @@ const Checkout = () => {
     };
 
     axios
-      .post("http://localhost:5000/api/orders", orderData)
+      .post("http://localhost:5001/api/orders", orderData)
       .then((response) => alert("Order placed successfully!"))
       .catch((err) => console.error("Error placing order", err));
   };
