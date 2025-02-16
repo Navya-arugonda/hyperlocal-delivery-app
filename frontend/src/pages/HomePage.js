@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import ExploreByCategories from "../components/ExploreByCategories";
 const HomePage = () => {
   return (
     <div>
@@ -56,6 +56,7 @@ const HomePage = () => {
             {/* Cart Count */}
             <span>3</span>
           </div>
+          <ExploreByCategories/>
         </div>
       </header>
     </div>
