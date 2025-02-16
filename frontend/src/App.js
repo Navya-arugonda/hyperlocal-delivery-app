@@ -12,6 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductPage />} />
+        <Route path="/products/:category" element={<ProductPage />} />{" "}
+        {/* Add category route */}
         <Route path="/cart" element={<CartPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFoundPage />} />
