@@ -8,7 +8,7 @@ const LoginPage = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/login", { email, password })
+      .post("http://localhost:5001/api/login", { email, password })
       .then((response) => {
         // Handle successful login (e.g., store JWT in localStorage)
         console.log(response.data);

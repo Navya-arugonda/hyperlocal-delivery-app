@@ -8,7 +8,7 @@ const Categories = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products/categories")
+      .get("http://localhost:5001/api/products/categories")
       .then((response) => setCategories(response.data))
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);

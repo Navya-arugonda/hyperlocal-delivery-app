@@ -1,102 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase"; // Import firebase auth for authentication
-import { Link } from "react-router-dom"; // You may need Link for navigation within the app
+import { auth } from "../firebase";
+import Carousal from "../components/Carousal";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // Check for user authentication on page load
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (!user) {
-        navigate("/login"); // If no user is logged in, redirect to login page
+        navigate("/login");
       } else {
-        setUser(user); // Set user state to authenticated user
+        setUser(user);
       }
     });
 
-    return unsubscribe; // Cleanup listener on component unmount
+    return unsubscribe;
   }, [navigate]);
 
-  // Function to get the username before the "@" symbol
-  const getUsername = (email) => {
-    if (email) {
-      const username = email.split("@")[0]; // Get the part before '@' symbol
-      return username;
-    }
-    return "User";
-  };
-
   return (
-    <div>
-      {/* Navbar Section */}
-      <header>
-        <div>
-          <h1>Welcome to Hyperlocal Delivery</h1>
-          {/* Main Content Section */}
-          <div>
-            <h2>Browse our products and shop now!</h2>
-            <Link to="/products">View Products</Link>
+    <>
+      {/* Main Section */}
+      <div className="h-auto bg-gray-100 flex flex-col items-center p-6">
+        <header className="w-full max-w-4xl bg-white shadow-lg rounded-2xl p-8 text-center">
+          <h1 className="text-3xl font-bold text-gray-800 mb-4">Welcome to Hyperlocal Delivery</h1>
+          <p className="text-lg text-gray-600">Browse our exclusive products and shop with ease!</p>
+        </header>
+
+        {user && (
+          <div className="mt-4 p-4 bg-gray-100 rounded-md">
+            <h3 className="text-lg font-semibold">Hello, {user.email.split("@")[0]}</h3>
           </div>
+        )}
 
-          {/* Search Bar */}
-          <div>
-            <input type="text" placeholder="Search products..." />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11.742 10.742a6 6 0 1 0-1.416 1.416l3.779 3.779a1 1 0 1 0 1.416-1.416l-3.779-3.779zM12 6a5 5 0 1 1-10 0 5 5 0 0 1 10 0z" />
-            </svg>
-          </div>
-
-          {/* Select Location Dropdown */}
-          <select>
-            <option>Select Location</option>
-            <option>Location 1</option>
-            <option>Location 2</option>
-            <option>Location 3</option>
-          </select>
-
-          {/* Cart Icon */}
-          <div>
-            <Link to="/cart">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path d="M5.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V1h1a1 1 0 0 1 .979 1.208l-1.356 7.979a1 1 0 0 1-.98.791H5.832a1 1 0 0 1-.98-.791L3.497 2.208A1 1 0 0 1 4.476 1H5.5V.5a.5.5 0 0 1 .5-.5zM4.5 2h7V1h-7v1zm-1.12 5h9.24L12.603 3H3.396l.98 4z" />
-              </svg>
-            </Link>
-            {/* Cart Count */}
-            <span>3</span>
-          </div>
-
-          {/* Personalized Greeting */}
-          {user && (
-            <div>
-              <h3>Hello, {getUsername(user.email)}</h3>
-              {/* Optionally, add a logout button */}
-              <button onClick={() => auth.signOut()}>Logout</button>
-            </div>
-          )}
-
-          {/* Explore Categories Section */}
-          <div>
-            <h2>Explore Categories</h2>
-            {/* Add categories or any other section you want */}
-          </div>
+        <div className="mt-4 text-center">
+          <h2 className="text-xl font-semibold">Browse our products and shop now!</h2>
+          <p className="text-gray-600">Find everything you need with fast delivery.</p>
         </div>
-      </header>
-    </div>
+      </div>
+
+      {/* Announcement Banner */}
+      <div className="w-full bg-yellow-300 text-center overflow-hidden py-1">
+        <p className="text-lg font-semibold text-gray-800">
+          🚀 Limited-time offers! Get up to 50% off on selected items. Shop now! 🛒
+        </p>
+      </div>
+
+      {/* Carousel Section */}
+      <div className="w-full mt-0">
+        <Carousal />
+      </div>
+    </>
   );
 };
 

@@ -57,7 +57,7 @@ const TopNav = () => {
       {/* Logo & Location */}
       <div className="flex items-center">
         <Link to="/">
-          <img src={logo} alt="Logo" className="h-8 md:h-10" />
+          <h3>Logo</h3>
         </Link>
         <div className="h-6 w-[2px] bg-gray-500 rounded-xl mx-3"></div>
         <h2 className="text-sm md:text-base font-semibold">Location</h2>
