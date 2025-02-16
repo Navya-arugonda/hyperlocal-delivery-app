@@ -1,4 +1,3 @@
-// routes/productRoutes.js
 const express = require("express");
 const Product = require("../models/Product");
 const router = express.Router();
@@ -6,10 +5,26 @@ const router = express.Router();
 // GET all products
 router.get("/", async (req, res) => {
   try {
-    const products = await Product.find();
+    let filter = {};
+
+    if (req.query.category) {
+      filter.category = req.query.category; // Filter by category if provided
+    }
+
+    const products = await Product.find(filter);
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json({ message: "Error fetching products", error: err });
+  }
+});
+
+// GET all unique product categories
+router.get("/categories", async (req, res) => {
+  try {
+    const categories = await Product.distinct("category");
+    res.status(200).json(categories);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching categories", error: err });
   }
 });
 
