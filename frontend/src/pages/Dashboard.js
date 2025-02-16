@@ -1,20 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import ExploreByCategories from "../components/ExploreByCategories";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase"; // Import firebase auth for authentication
+import { Link } from "react-router-dom"; // You may need Link for navigation within the app
 
-const HomePage = () => {
+const Dashboard = () => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  // Check for user authentication on page load
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        navigate("/login"); // If no user is logged in, redirect to login page
+      } else {
+        setUser(user); // Set user state to authenticated user
+      }
+    });
+
+    return unsubscribe; // Cleanup listener on component unmount
+  }, [navigate]);
+
+  // Function to get the username before the "@" symbol
+  const getUsername = (email) => {
+    if (email) {
+      const username = email.split("@")[0]; // Get the part before '@' symbol
+      return username;
+    }
+    return "User";
+  };
+
   return (
     <div>
       {/* Navbar Section */}
       <header>
         <div>
-          {/* Welcome heading */}
           <h1>Welcome to Hyperlocal Delivery</h1>
           {/* Main Content Section */}
           <div>
             <h2>Browse our products and shop now!</h2>
             <Link to="/products">View Products</Link>
           </div>
+
           {/* Search Bar */}
           <div>
             <input type="text" placeholder="Search products..." />
@@ -28,6 +54,7 @@ const HomePage = () => {
               <path d="M11.742 10.742a6 6 0 1 0-1.416 1.416l3.779 3.779a1 1 0 1 0 1.416-1.416l-3.779-3.779zM12 6a5 5 0 1 1-10 0 5 5 0 0 1 10 0z" />
             </svg>
           </div>
+
           {/* Select Location Dropdown */}
           <select>
             <option>Select Location</option>
@@ -35,10 +62,7 @@ const HomePage = () => {
             <option>Location 2</option>
             <option>Location 3</option>
           </select>
-          {/* Login Button */}
-          <Link to="/login">Login</Link>
-          {/* Sign Up Button */}
-          <Link to="/signup">Sign Up</Link> {/* Add the SignUp link here */}
+
           {/* Cart Icon */}
           <div>
             <Link to="/cart">
@@ -55,11 +79,25 @@ const HomePage = () => {
             {/* Cart Count */}
             <span>3</span>
           </div>
-          <ExploreByCategories />
+
+          {/* Personalized Greeting */}
+          {user && (
+            <div>
+              <h3>Hello, {getUsername(user.email)}</h3>
+              {/* Optionally, add a logout button */}
+              <button onClick={() => auth.signOut()}>Logout</button>
+            </div>
+          )}
+
+          {/* Explore Categories Section */}
+          <div>
+            <h2>Explore Categories</h2>
+            {/* Add categories or any other section you want */}
+          </div>
         </div>
       </header>
     </div>
   );
 };
 
-export default HomePage;
+export default Dashboard;

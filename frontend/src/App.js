@@ -5,28 +5,37 @@ import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import AllProducts from "./pages/AllProducts"
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
 import SingleProduct from "./pages/SingleProduct";
+import Dashboard from "./pages/Dashboard";
+
 function App() {
   return (
-    
     <div className="App">
-      
-    <Router>
-      <Routes>
-      <Route path='/allproducts/:products' element={<AllProducts/>} />
-      <Route path='/allproducts/:products/:id' element={
-              <SingleProduct/>
-            } />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductPage />} />
-        <Route path="/products/:category" element={<ProductPage />} />{" "}
-        {/* Add category route */}
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          {/* Home Route */}
+          <Route path="/" element={<HomePage />} />
+          {/* Products Routes */}
+          <Route path="/products" element={<ProductPage />} />
+          <Route path="/products/:category" element={<ProductPage />} />{" "}
+          {/* Category-based products */}
+          <Route
+            path="/products/:category/:id"
+            element={<SingleProduct />}
+          />{" "}
+          {/* Single product based on id */}
+          {/* Authentication Routes */}
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          {/* Cart Route */}
+          <Route path="/cart" element={<CartPage />} />
+          {/* Not found Route */}
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
